@@ -2,16 +2,30 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/40">
-      <div className="container flex flex-col gap-4 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-        <p>© {new Date().getFullYear()} Cars to go. All rights reserved.</p>
-        <div className="flex items-center gap-4">
-          <Link href="/privacy" className="hover:text-foreground">
-            Privacy
-          </Link>
-          <Link href="/admin" className="hover:text-foreground">
-            Admin
-          </Link>
+    <footer className="border-t border-primary/10 bg-primary/5">
+      <div className="container py-10">
+        <div className="grid gap-6 text-sm text-muted-foreground md:grid-cols-[2fr_1fr] md:items-center">
+          <div className="space-y-2">
+            <p className="text-lg font-semibold text-foreground">Cars to go</p>
+            <p>
+              Auction-sourced vehicles, transparent pricing, and a service team focused on getting you on the road fast.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 md:justify-end">
+            <Link href="/privacy" className="transition hover:text-primary">
+              Privacy
+            </Link>
+            <Link href="/contact" className="transition hover:text-primary">
+              Contact
+            </Link>
+            <Link href="/admin" className="transition hover:text-primary">
+              Admin
+            </Link>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground/80 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Cars to go. All rights reserved.</p>
+          <p>Made with care in the Midwest auction lanes.</p>
         </div>
       </div>
     </footer>
