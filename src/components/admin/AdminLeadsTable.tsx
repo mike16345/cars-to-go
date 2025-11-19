@@ -38,7 +38,7 @@ export function AdminLeadsTable({ leads }: AdminLeadsTableProps) {
         <tbody>
           {leads.map((lead) => (
             <tr key={lead.id} className="border-t">
-              <td className="p-3 font-medium">{lead.name}</td>
+              <td className="p-3 font-medium">{lead.fullName}</td>
               <td className="p-3">{lead.email}</td>
               <td className="p-3">{lead.phone ?? "-"}</td>
               <td className="p-3">
@@ -49,12 +49,20 @@ export function AdminLeadsTable({ leads }: AdminLeadsTableProps) {
               <td className="p-3 text-right">
                 <div className="flex justify-end gap-2">
                   {lead.status !== "CONTACTED" && (
-                    <Button size="sm" variant="outline" onClick={() => updateStatus(lead.id, "CONTACTED")}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => updateStatus(lead.id, "CONTACTED")}
+                    >
                       Mark contacted
                     </Button>
                   )}
                   {lead.status !== "CLOSED" && (
-                    <Button size="sm" variant="outline" onClick={() => updateStatus(lead.id, "CLOSED")}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => updateStatus(lead.id, "CLOSED")}
+                    >
                       Close
                     </Button>
                   )}

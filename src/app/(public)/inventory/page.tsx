@@ -19,12 +19,15 @@ export default async function InventoryPage({ searchParams }: InventoryPageProps
   const models = extractUniqueModels(cars, filters.make);
 
   return (
-    <div className="space-y-10">
-      <div className="rounded-2xl border bg-background p-6 shadow-sm">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-sm uppercase text-muted-foreground">Search</p>
-            <h1 className="text-3xl font-semibold">Inventory</h1>
+    <div className="space-y-12">
+      <div className="rounded-[2rem] border border-primary/10 bg-card/90 p-6 shadow-lg shadow-primary/10 md:p-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Search inventory</p>
+            <h1 className="text-3xl font-semibold leading-tight">Every lane win, ready to shop.</h1>
+            <p className="text-muted-foreground">
+              Filter by price, mileage, or status to find the perfect wholesale-ready vehicle.
+            </p>
           </div>
           <div className="w-full md:max-w-md">
             <CarSearchBar />
@@ -32,7 +35,7 @@ export default async function InventoryPage({ searchParams }: InventoryPageProps
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
         <CarFilters initialFilters={mapFiltersToStrings(filters)} makes={makes} models={models} />
         <CarGrid cars={cars} emptyLabel="No cars match these filters" />
       </div>

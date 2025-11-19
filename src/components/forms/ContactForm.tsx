@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
+import { Label } from "../ui/label";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -30,6 +31,7 @@ export function ContactForm({ carId }: ContactFormProps) {
     resolver: zodResolver(contactSchema),
     defaultValues: { carId, name: "", email: "", phone: "", message: "" },
   });
+  const { errors } = form.formState;
 
   const onSubmit = async (values: ContactValues) => {
     setIsSubmitting(true);
@@ -55,30 +57,34 @@ export function ContactForm({ carId }: ContactFormProps) {
   };
 
   return (
-    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+    <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="space-y-1">
+        <h2 className="text-2xl font-semibold">Send us the details</h2>
+        <p className="text-sm text-muted-foreground">We will route your note to the right specialist immediately.</p>
+      </div>
       <input type="hidden" value={carId ?? ""} {...form.register("carId")} />
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Name</label>
-          <Input {...form.register("name")} placeholder="Jane Doe" />
-          <p className="text-xs text-destructive">{form.formState.errors.name?.message}</p>
+          <Label className="text-xs uppercase tracking-wide">Name</Label>
+          <Input {...form.register("name")} placeholder="Jane Doe" className="h-12 rounded-2xl" />
+          <p className="text-xs text-destructive">{errors.name?.message}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Email</label>
-          <Input type="email" {...form.register("email")} placeholder="you@email.com" />
-          <p className="text-xs text-destructive">{form.formState.errors.email?.message}</p>
+          <Label className="text-xs uppercase tracking-wide">Email</Label>
+          <Input type="email" {...form.register("email")} placeholder="you@email.com" className="h-12 rounded-2xl" />
+          <p className="text-xs text-destructive">{errors.email?.message}</p>
         </div>
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Phone</label>
-        <Input {...form.register("phone")} placeholder="(555) 555-1234" />
+        <Label className="text-xs uppercase tracking-wide">Phone</Label>
+        <Input {...form.register("phone")} placeholder="(555) 555-1234" className="h-12 rounded-2xl" />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Message</label>
-        <Textarea rows={4} {...form.register("message")} placeholder="Tell us what you are looking for" />
-        <p className="text-xs text-destructive">{form.formState.errors.message?.message}</p>
+        <Label className="text-xs uppercase tracking-wide">Message</Label>
+        <Textarea rows={4} {...form.register("message")} placeholder="Tell us what you are looking for" className="rounded-3xl" />
+        <p className="text-xs text-destructive">{errors.message?.message}</p>
       </div>
-      <Button disabled={isSubmitting} type="submit">
+      <Button disabled={isSubmitting} type="submit" className="w-full rounded-full py-6 text-base font-semibold">
         {isSubmitting ? "Sending..." : "Send message"}
       </Button>
     </form>

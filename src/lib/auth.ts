@@ -36,7 +36,7 @@ export async function authenticateAdmin(email: string, password: string) {
 
 export async function getCurrentUser() {
   await ensureAdminUser();
-  const token = cookies().get(SESSION_COOKIE)?.value;
+  const token = (await cookies()).get(SESSION_COOKIE)?.value;
 
   if (!token) {
     return null;
