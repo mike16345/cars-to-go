@@ -1,56 +1,45 @@
-// Prisma schema for Cars to go
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+/// --- Your tables ---
+/// Add all your models here, example:
+
+model Car {
+  id        String   @id @default(uuid())
+  make      String
+  model     String
+  year      Int
+  mileage   Int?      
+  price     Int
+  status    CarStatus
+  description String?
+  images    String[]
+  featured  Boolean @default(false)
+  createdAt DateTime @default(now())
 }
 
 enum CarStatus {
   AVAILABLE
-  SOLD
   COMING_SOON
-}
-
-enum LeadStatus {
-  NEW
-  CONTACTED
-  CLOSED
-}
-
-model Car {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  make        String
-  model       String
-  year        Int
-  mileage     Int?
-  price       Int?
-  status      CarStatus @default(AVAILABLE)
-  description String?
-  images      Json?
-  featured    Boolean   @default(false)
-  leads       Lead[]
+  SOLD
 }
 
 model Lead {
-  id        String     @id @default(cuid())
-  createdAt DateTime   @default(now())
-  name      String
+  id        String   @id @default(uuid())
+  fullName  String
   email     String
   phone     String?
-  message   String?
-  carId     String?
-  car       Car?       @relation(fields: [carId], references: [id])
-  status    LeadStatus @default(NEW)
+  createdAt DateTime @default(now())
 }
 
 model AdminUser {
-  id       String @id @default(cuid())
+  id       String @id @default(uuid())
   email    String @unique
   password String
-  role     String @default("admin")
 }

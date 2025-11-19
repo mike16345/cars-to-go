@@ -44,3 +44,6 @@ prisma/dev.db
 next-env.d.ts
 
 .vercel
+
+.vscode
+/src/generated/prisma

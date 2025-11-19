@@ -80,7 +80,7 @@ export function CarFilters({ initialFilters, makes, models }: CarFiltersProps) {
             <SelectValue placeholder="Any" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Any</SelectItem>
+            <SelectItem value="Any">Any</SelectItem>
             {makes.map((make) => (
               <SelectItem key={make} value={make}>
                 {make}
@@ -97,7 +97,7 @@ export function CarFilters({ initialFilters, makes, models }: CarFiltersProps) {
             <SelectValue placeholder="Any" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Any</SelectItem>
+            <SelectItem value="Any">Any</SelectItem>
             {models.map((model) => (
               <SelectItem key={model} value={model}>
                 {model}
@@ -109,12 +109,15 @@ export function CarFilters({ initialFilters, makes, models }: CarFiltersProps) {
 
       <div className="space-y-2">
         <Label>Status</Label>
-        <Select value={filters.status ?? ""} onValueChange={(value) => handleInput("status", value)}>
+        <Select
+          value={filters.status ?? ""}
+          onValueChange={(value) => handleInput("status", value)}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Any" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Any</SelectItem>
+            <SelectItem value="Any">Any</SelectItem>
             {statusOptions.map((status) => (
               <SelectItem key={status} value={status}>
                 {status.replace("_", " ")}
@@ -126,7 +129,10 @@ export function CarFilters({ initialFilters, makes, models }: CarFiltersProps) {
 
       <div className="space-y-2">
         <Label>Sort</Label>
-        <Select value={(filters.sort as string) ?? "newest"} onValueChange={(value) => handleInput("sort", value)}>
+        <Select
+          value={(filters.sort as string) ?? "newest"}
+          onValueChange={(value) => handleInput("sort", value)}
+        >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>

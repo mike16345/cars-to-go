@@ -4,13 +4,15 @@ import { CarFilters } from "@/components/cars/CarFilters";
 import { CarGrid } from "@/components/cars/CarGrid";
 import { CarSearchBar } from "@/components/cars/CarSearchBar";
 import { extractUniqueMakes, extractUniqueModels } from "@/lib/utils/filtersUtils";
+import { CarSortOption } from "@/modules/cars/cars.types";
 
 interface InventoryPageProps {
   searchParams: Record<string, string | string[] | undefined>;
 }
 
 export default async function InventoryPage({ searchParams }: InventoryPageProps) {
-  const filters = normalizeFilters(searchParams);
+  const params = await searchParams;
+  const filters = normalizeFilters(params);
   const service = new CarsService();
   const cars = await service.listCars(filters);
   const makes = extractUniqueMakes(cars);
@@ -39,6 +41,21 @@ export default async function InventoryPage({ searchParams }: InventoryPageProps
 }
 
 function normalizeFilters(query: Record<string, string | string[] | undefined>) {
+  console.log("Raw query params:", query);
+  const rawSort = getValue(query.sort);
+
+  const validSorts: CarSortOption[] = [
+    "newest",
+    "price-asc",
+    "price-desc",
+    "year-desc",
+    "year-asc",
+  ];
+  const sort: CarSortOption =
+    rawSort && validSorts.includes(rawSort as CarSortOption)
+      ? (rawSort as CarSortOption)
+      : "newest";
+
   return {
     q: getValue(query.q),
     minPrice: toNumber(query.minPrice),
@@ -48,13 +65,13 @@ function normalizeFilters(query: Record<string, string | string[] | undefined>) 
     make: getValue(query.make),
     model: getValue(query.model),
     status: getValue(query.status) as CarStatus | undefined,
-    sort: getValue(query.sort) ?? "newest",
+    sort,
   };
 }
 
 function mapFiltersToStrings(filters: Record<string, unknown>) {
   return Object.fromEntries(
-    Object.entries(filters).map(([key, value]) => [key, value ? String(value) : ""]),
+    Object.entries(filters).map(([key, value]) => [key, value ? String(value) : ""])
   );
 }
 
