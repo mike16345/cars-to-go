@@ -1,0 +1,56 @@
+// Prisma schema for Cars to go
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum CarStatus {
+  AVAILABLE
+  SOLD
+  COMING_SOON
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+model Car {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  make        String
+  model       String
+  year        Int
+  mileage     Int?
+  price       Int?
+  status      CarStatus @default(AVAILABLE)
+  description String?
+  images      Json?
+  featured    Boolean   @default(false)
+  leads       Lead[]
+}
+
+model Lead {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  name      String
+  email     String
+  phone     String?
+  message   String?
+  carId     String?
+  car       Car?       @relation(fields: [carId], references: [id])
+  status    LeadStatus @default(NEW)
+}
+
+model AdminUser {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  role     String @default("admin")
+}
