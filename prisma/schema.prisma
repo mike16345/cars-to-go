@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// --- Your tables ---
+/// Add all your models here, example:
+
+model Car {
+  id        String   @id @default(uuid())
+  make      String
+  model     String
+  year      Int
+  mileage   Int?      
+  price     Int
+  status    CarStatus
+  description String?
+  images    String[]
+  featured  Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+enum CarStatus {
+  AVAILABLE
+  COMING_SOON
+  SOLD
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String
+  phone     String?
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}
