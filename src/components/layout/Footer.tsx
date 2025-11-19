@@ -2,13 +2,14 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-primary/10 bg-primary/5">
+    <footer className="p-4 border-t border-primary/10 bg-primary/5">
       <div className="container py-10">
         <div className="grid gap-6 text-sm text-muted-foreground md:grid-cols-[2fr_1fr] md:items-center">
           <div className="space-y-2">
             <p className="text-lg font-semibold text-foreground">Cars to go</p>
             <p>
-              Auction-sourced vehicles, transparent pricing, and a service team focused on getting you on the road fast.
+              Auction-sourced vehicles, transparent pricing, and a service team focused on getting
+              you on the road fast.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 md:justify-end">

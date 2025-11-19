@@ -39,7 +39,7 @@ export function AdminLoginForm() {
 
       window.location.href = "/admin";
     } catch (error) {
-      toast({ title: "Login failed", description: (error as Error).message, variant: "destructive" });
+      toast.error(`Login failed`);
     } finally {
       setIsSubmitting(false);
     }
