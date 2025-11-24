@@ -9,7 +9,6 @@ export class LeadsRepository {
 
   async list(): Promise<Lead[]> {
     return prisma.lead.findMany({
-      include: { car: true },
       orderBy: { createdAt: "desc" },
     });
   }

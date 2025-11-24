@@ -17,7 +17,9 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    
     const data = await controller.create(body);
+    
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     return NextResponse.json({ message: (error as Error).message }, { status: 400 });

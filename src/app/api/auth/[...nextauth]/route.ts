@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  authenticateAdmin,
-  endSession,
-  getCurrentUser,
-  startSession,
-} from "@/lib/auth";
+import { authenticateAdmin, endSession, getCurrentUser, startSession } from "@/lib/auth";
 
 export async function GET() {
   const user = await getCurrentUser();
@@ -21,7 +16,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
   }
 
-  startSession(user.id);
+  await startSession(user.id);
+
   return NextResponse.json({ data: { email: user.email, role: user.role } });
 }
 

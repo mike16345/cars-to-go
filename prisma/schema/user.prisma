@@ -15,6 +15,7 @@ model Lead {
   id        String   @id @default(uuid())
   fullName  String
   email     String
+  message   String?
   phone     String?
   status    LeadStatus @default(NEW)
   createdAt DateTime @default(now())

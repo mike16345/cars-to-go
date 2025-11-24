@@ -1,10 +1,6 @@
-import { LeadStatus } from "@prisma/client";
+import { LeadStatus, type Lead } from "@prisma/client";
 
-export interface LeadInput {
-  name: string;
-  email: string;
-  phone?: string | null;
-  message?: string | null;
+export interface LeadInput extends Lead {
   carId?: string | null;
 }
 
