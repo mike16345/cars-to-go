@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { AdminLoginForm } from "@/components/forms/AdminLoginForm";
 import { buttonVariants } from "@/components/ui/button";
+import { InteractiveNavLink } from "@/components/navigation/InteractiveNavLink";
 
 export default function AdminLoginPage() {
   return (
@@ -12,9 +12,9 @@ export default function AdminLoginPage() {
         <div className="mt-6">
           <AdminLoginForm />
         </div>
-        <Link href="/" className={`${buttonVariants({ variant: "link" })} mt-4 w-full justify-center`}>
+        <InteractiveNavLink href="/" className={`${buttonVariants({ variant: "link" })} mt-4 w-full justify-center`}>
           Back to site
-        </Link>
+        </InteractiveNavLink>
       </div>
     </div>
   );

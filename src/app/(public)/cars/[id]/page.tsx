@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CarsService } from "@/modules/cars/CarsService";
 import { CarPriceBadge } from "@/components/cars/CarPriceBadge";
 import { formatMileage } from "@/lib/utils/numberUtils";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { InteractiveNavLink } from "@/components/navigation/InteractiveNavLink";
 
 interface CarDetailPageProps {
   params: { id: string };
@@ -79,12 +79,12 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
           <p className="text-sm text-muted-foreground">
             Want to see service records or transport quotes? Send us a quick note and we will reply within one business day.
           </p>
-          <Link
+          <InteractiveNavLink
             href={`/contact?carId=${car.id}`}
             className={cn(buttonVariants(), "w-full justify-center rounded-full py-6 text-base font-semibold")}
           >
             Contact about this car
-          </Link>
+          </InteractiveNavLink>
         </div>
       </div>
     </div>
