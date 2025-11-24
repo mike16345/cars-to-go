@@ -31,7 +31,7 @@ export function InteractiveNavLink({
   const isPending = isNavigating && pendingHref === hrefString;
 
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
-    if (isPending) {
+    if (isPending || href == pendingHref || !pendingHref) {
       event.preventDefault();
       return;
     }
@@ -70,7 +70,10 @@ function normalizeHref(href: LinkProps["href"]): string | null {
   if (typeof href === "string") return href;
   if (!href) return null;
   const pathname = "pathname" in href ? href.pathname ?? "" : "";
-  const query = "query" in href && href.query ? `?${new URLSearchParams(href.query as Record<string, string>).toString()}` : "";
+  const query =
+    "query" in href && href.query
+      ? `?${new URLSearchParams(href.query as Record<string, string>).toString()}`
+      : "";
   const hash = "hash" in href && href.hash ? `#${href.hash.replace(/^#/, "")}` : "";
   return `${pathname}${query}${hash}` || null;
 }

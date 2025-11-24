@@ -27,6 +27,8 @@ export function useNavigationProgress(): NavigationState & NavigationControls {
   const lastPathnameRef = useRef<string | null>(pathname ?? null);
 
   const startNavigation = useCallback((href: string) => {
+    if (href === lastPathnameRef.current) return;
+    
     setState({ isNavigating: true, pendingHref: href });
   }, []);
 
@@ -37,6 +39,7 @@ export function useNavigationProgress(): NavigationState & NavigationControls {
   // App Router: if the pathname changes, mark navigation as complete.
   useEffect(() => {
     if (!pathname || lastPathnameRef.current === pathname) return;
+
     lastPathnameRef.current = pathname;
     completeNavigation();
   }, [pathname, completeNavigation]);
