@@ -1,0 +1,22 @@
+model AdminUser {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CONVERTED
+  CLOSED
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String
+  message   String?
+  phone     String?
+  status    LeadStatus @default(NEW)
+  createdAt DateTime @default(now())
+}

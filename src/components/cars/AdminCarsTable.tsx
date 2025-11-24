@@ -75,7 +75,7 @@ export function AdminCarsTable({ cars }: AdminCarsTableProps) {
         </table>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl overflow-y-scroll ">
           <DialogHeader>
             <DialogTitle>{selectedCar ? "Edit car" : "Add car"}</DialogTitle>
           </DialogHeader>

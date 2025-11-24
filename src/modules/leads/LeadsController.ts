@@ -8,11 +8,13 @@ export class LeadsController {
   async create(payload: unknown) {
     const input = this.parseCreate(payload);
     const lead = await this.service.createLead(input);
+
     return { data: lead };
   }
 
   async list() {
     const leads = await this.service.listLeads();
+
     return { data: leads };
   }
 
@@ -24,7 +26,6 @@ export class LeadsController {
 
   private parseCreate(payload: unknown): LeadInput {
     const parsed = leadCreateSchema.safeParse(payload);
-
     if (!parsed.success) {
       throw new Error(parsed.error.message);
     }

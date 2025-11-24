@@ -36,8 +36,9 @@ export async function authenticateAdmin(email: string, password: string) {
 
 export async function getCurrentUser() {
   await ensureAdminUser();
-  const token = cookies().get(SESSION_COOKIE)?.value;
-
+  const cookie = (await cookies()).get(SESSION_COOKIE);
+  const token = cookie?.value;
+  
   if (!token) {
     return null;
   }
@@ -62,8 +63,8 @@ export async function requireAdmin() {
   return user;
 }
 
-export function startSession(userId: string) {
-  const cookieStore = cookies();
+export async function startSession(userId: string) {
+  const cookieStore = await cookies();
   const token = createSessionToken(userId);
 
   cookieStore.set(SESSION_COOKIE, token, {
@@ -75,8 +76,8 @@ export function startSession(userId: string) {
   });
 }
 
-export function endSession() {
-  const cookieStore = cookies();
+export async function endSession() {
+  const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE);
 }
 

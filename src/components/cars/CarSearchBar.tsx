@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import { objectToSearchParams } from "@/lib/utils/queryUtils";
 
@@ -19,11 +20,15 @@ export function CarSearchBar() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
-      <Input
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        placeholder="Search make, model or keywords"
-      />
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder="Search make, model or keywords"
+          className="h-12 rounded-full border-primary/20 bg-background/80 pl-12"
+        />
+      </div>
     </form>
   );
 }

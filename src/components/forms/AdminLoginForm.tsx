@@ -37,9 +37,12 @@ export function AdminLoginForm() {
         throw new Error("Invalid credentials");
       }
 
-      window.location.href = "/admin";
+      console.log("Login successful");
+      toast.success("Login successful");
+
+      window.location.href = "/admin/leads";
     } catch (error) {
-      toast({ title: "Login failed", description: (error as Error).message, variant: "destructive" });
+      toast.error(`Login failed`);
     } finally {
       setIsSubmitting(false);
     }

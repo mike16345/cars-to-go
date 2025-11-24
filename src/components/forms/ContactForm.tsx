@@ -8,16 +8,10 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
+import { Label } from "../ui/label";
+import { leadCreateSchema } from "@/modules/leads/leads.schema";
 
-const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  message: z.string().min(10),
-  carId: z.string().optional(),
-});
-
-type ContactValues = z.infer<typeof contactSchema>;
+type ContactValues = z.infer<typeof leadCreateSchema>;
 
 interface ContactFormProps {
   carId?: string;
@@ -26,10 +20,11 @@ interface ContactFormProps {
 export function ContactForm({ carId }: ContactFormProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useForm<ContactValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: { carId, name: "", email: "", phone: "", message: "" },
+  const form = useForm({
+    resolver: zodResolver(leadCreateSchema),
+    defaultValues: { fullName: "", email: "", phone: "", message: "" },
   });
+  const { errors } = form.formState;
 
   const onSubmit = async (values: ContactValues) => {
     setIsSubmitting(true);
@@ -45,40 +40,67 @@ export function ContactForm({ carId }: ContactFormProps) {
         throw new Error("Failed to send lead");
       }
 
-      form.reset({ ...values, message: "", carId: values.carId });
-      toast({ title: "Thanks!", description: "We will get back to you shortly." });
+      form.reset({ ...values, message: "" });
+      toast.success("Thanks! We will get back to you shortly.");
     } catch (error) {
-      toast({ title: "Something went wrong", description: (error as Error).message, variant: "destructive" });
+      toast.error(`Something went wrong: ${(error as Error).message}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-      <input type="hidden" value={carId ?? ""} {...form.register("carId")} />
+    <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="space-y-1">
+        <h2 className="text-2xl font-semibold">Send us the details</h2>
+        <p className="text-sm text-muted-foreground">
+          We will route your note to the right specialist immediately.
+        </p>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Name</label>
-          <Input {...form.register("name")} placeholder="Jane Doe" />
-          <p className="text-xs text-destructive">{form.formState.errors.name?.message}</p>
+          <Label className="text-xs uppercase tracking-wide">Name</Label>
+          <Input
+            {...form.register("fullName")}
+            placeholder="Jane Doe"
+            className="h-12 rounded-2xl"
+          />
+          <p className="text-xs text-destructive">{errors.fullName?.message}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Email</label>
-          <Input type="email" {...form.register("email")} placeholder="you@email.com" />
-          <p className="text-xs text-destructive">{form.formState.errors.email?.message}</p>
+          <Label className="text-xs uppercase tracking-wide">Email</Label>
+          <Input
+            type="email"
+            {...form.register("email")}
+            placeholder="you@email.com"
+            className="h-12 rounded-2xl"
+          />
+          <p className="text-xs text-destructive">{errors.email?.message}</p>
         </div>
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Phone</label>
-        <Input {...form.register("phone")} placeholder="(555) 555-1234" />
+        <Label className="text-xs uppercase tracking-wide">Phone</Label>
+        <Input
+          {...form.register("phone")}
+          placeholder="(555) 555-1234"
+          className="h-12 rounded-2xl"
+        />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Message</label>
-        <Textarea rows={4} {...form.register("message")} placeholder="Tell us what you are looking for" />
-        <p className="text-xs text-destructive">{form.formState.errors.message?.message}</p>
+        <Label className="text-xs uppercase tracking-wide">Message</Label>
+        <Textarea
+          rows={4}
+          {...form.register("message")}
+          placeholder="Tell us what you are looking for"
+          className="rounded-3xl"
+        />
+        <p className="text-xs text-destructive">{errors.message?.message}</p>
       </div>
-      <Button disabled={isSubmitting} type="submit">
+      <Button
+        disabled={isSubmitting}
+        type="submit"
+        className="w-full rounded-full py-6 text-base font-semibold"
+      >
         {isSubmitting ? "Sending..." : "Send message"}
       </Button>
     </form>
