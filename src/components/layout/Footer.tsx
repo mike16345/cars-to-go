@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { InteractiveNavLink } from "../navigation/InteractiveNavLink";
 
 export function Footer() {
   return (
@@ -13,15 +13,15 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 md:justify-end">
-            <Link href="/privacy" className="transition hover:text-primary">
+            <InteractiveNavLink href="/privacy" className="transition hover:text-primary">
               Privacy
-            </Link>
-            <Link href="/contact" className="transition hover:text-primary">
+            </InteractiveNavLink>
+            <InteractiveNavLink href="/contact" className="transition hover:text-primary">
               Contact
-            </Link>
-            <Link href="/admin" className="transition hover:text-primary">
+            </InteractiveNavLink>
+            <InteractiveNavLink href="/admin" className="transition hover:text-primary">
               Admin
-            </Link>
+            </InteractiveNavLink>
           </div>
         </div>
         <div className="mt-8 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground/80 md:flex-row md:items-center md:justify-between">

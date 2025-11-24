@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { InteractiveNavLink } from "../navigation/InteractiveNavLink";
 
 const LINKS = [
   { href: "/admin", label: "Dashboard" },
@@ -19,7 +19,7 @@ export function AdminSidebar() {
       <div className="text-lg font-semibold">Cars to go Admin</div>
       <nav className="mt-6 flex flex-col gap-2 text-sm">
         {LINKS.map((link) => (
-          <Link
+          <InteractiveNavLink
             key={link.href}
             href={link.href}
             className={cn(
@@ -28,7 +28,7 @@ export function AdminSidebar() {
             )}
           >
             {link.label}
-          </Link>
+          </InteractiveNavLink>
         ))}
       </nav>
     </aside>

@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "../ui/button";
+import { InteractiveNavLink } from "../navigation/InteractiveNavLink";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -22,7 +22,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-primary/10 bg-background/95 shadow-sm backdrop-blur">
       <div className="container flex h-20 items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3">
+        <InteractiveNavLink href="/" className="flex items-center gap-3">
           <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
             Cars
           </div>
@@ -30,11 +30,11 @@ export function Navbar() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">To Go</p>
             <p className="text-lg font-semibold">Auction dealers</p>
           </div>
-        </Link>
+        </InteractiveNavLink>
 
         <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
           {NAV_LINKS.map((link) => (
-            <Link
+            <InteractiveNavLink
               key={link.href}
               href={link.href}
               className={cn(
@@ -46,17 +46,17 @@ export function Navbar() {
               {pathname === link.href && (
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primary" />
               )}
-            </Link>
+            </InteractiveNavLink>
           ))}
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
+          <InteractiveNavLink
             href="/inventory"
             className={cn(buttonVariants({ variant: "default" }), "hidden rounded-full px-6 text-sm font-semibold md:inline-flex")}
           >
             Browse inventory
-          </Link>
+          </InteractiveNavLink>
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-full border border-primary/20 p-2 text-primary transition-colors hover:border-primary hover:bg-primary/5 md:hidden"
@@ -72,7 +72,7 @@ export function Navbar() {
         <div className="border-b border-primary/10 bg-background shadow-lg md:hidden">
           <div className="container flex flex-col gap-3 py-6 text-sm font-medium">
             {NAV_LINKS.map((link) => (
-              <Link
+              <InteractiveNavLink
                 key={link.href}
                 href={link.href}
                 onClick={closeMenu}
@@ -82,11 +82,11 @@ export function Navbar() {
                 )}
               >
                 {link.label}
-              </Link>
+              </InteractiveNavLink>
             ))}
-            <Link href="/inventory" className={cn(buttonVariants(), "w-full justify-center")} onClick={closeMenu}>
+            <InteractiveNavLink href="/inventory" className={cn(buttonVariants(), "w-full justify-center")} onClick={closeMenu}>
               Browse inventory
-            </Link>
+            </InteractiveNavLink>
           </div>
         </div>
       ) : null}

@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CarsService } from "@/modules/cars/CarsService";
 import { CarGrid } from "@/components/cars/CarGrid";
 import { ServicesController } from "@/modules/services/ServicesController";
+import { InteractiveNavLink } from "@/components/navigation/InteractiveNavLink";
 
 const WHY_CARDS = [
   {
@@ -42,7 +42,7 @@ export default async function HomePage() {
             We buy from trusted auction lanes every week, handle the recon in-house, and list every detail so you can shop with total confidence.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
+            <InteractiveNavLink
               href="/inventory"
               className={cn(
                 buttonVariants(),
@@ -50,8 +50,8 @@ export default async function HomePage() {
               )}
             >
               Browse inventory
-            </Link>
-            <Link
+            </InteractiveNavLink>
+            <InteractiveNavLink
               href="/contact"
               className={cn(
                 buttonVariants({ variant: "outline" }),
@@ -59,7 +59,7 @@ export default async function HomePage() {
               )}
             >
               Talk with us
-            </Link>
+            </InteractiveNavLink>
           </div>
           <div className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-3">
             <div>
@@ -99,9 +99,9 @@ export default async function HomePage() {
             <h2 className="text-3xl font-semibold">Featured vehicles</h2>
             <p className="text-muted-foreground">Fresh arrivals straight from the auction lanes, fully detailed and ready for a test drive.</p>
           </div>
-          <Link href="/inventory" className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-6")}>
+          <InteractiveNavLink href="/inventory" className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-6")}>
             View all inventory
-          </Link>
+          </InteractiveNavLink>
         </div>
         <CarGrid cars={featured} emptyLabel="No featured vehicles yet" />
       </section>

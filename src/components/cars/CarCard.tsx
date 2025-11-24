@@ -1,9 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import type { Car } from "@prisma/client";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { CarPriceBadge } from "./CarPriceBadge";
 import { formatMileage } from "@/lib/utils/numberUtils";
+import { InteractiveNavLink } from "../navigation/InteractiveNavLink";
 
 interface CarCardProps {
   car: Car;
@@ -15,7 +15,7 @@ export function CarCard({ car }: CarCardProps) {
   return (
     <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-primary/10 bg-card shadow-sm transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
       <CardHeader className="p-0">
-        <Link href={`/cars/${car.id}`} className="relative block aspect-[4/3] w-full overflow-hidden">
+        <InteractiveNavLink href={`/cars/${car.id}`} className="relative block aspect-[4/3] w-full overflow-hidden">
           {firstImage ? (
             <Image
               src={firstImage}
@@ -27,7 +27,7 @@ export function CarCard({ car }: CarCardProps) {
           ) : (
             <div className="flex h-full items-center justify-center bg-muted">No image</div>
           )}
-        </Link>
+        </InteractiveNavLink>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-3 p-5">
         <div className="space-y-1">
